@@ -50,7 +50,8 @@ public class DeportistaSv {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public DeportistaDTO crearDeportista(DeportistaDTO usr) {
         try {
-            deportistaFachada.save(conversor.dtoToDeportista(usr));
+            Deportista deportista = conversor.dtoToDeportista(usr);
+            deportistaFachada.save(deportista);
             return usr;
         } catch (Exception e) {
             System.out.println(e);
