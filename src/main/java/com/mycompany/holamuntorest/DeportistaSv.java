@@ -53,6 +53,7 @@ public class DeportistaSv {
             deportistaFachada.save(conversor.dtoToDeportista(usr));
             return usr;
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
