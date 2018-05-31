@@ -63,7 +63,6 @@ public class ConversorDTO {
 
     public DeportistaDTO deportistaToDTO(Deportista a) {
         DeportistaDTO deportistaDTO = new DeportistaDTO();
-        deportistaDTO.setID_Deportista(a.getID_Deportista());
         deportistaDTO.setNombre(a.getNombre());
         deportistaDTO.setApellido(a.getApellido());
         deportistaDTO.setFechaNacimiento(a.getFechaNacimiento());
