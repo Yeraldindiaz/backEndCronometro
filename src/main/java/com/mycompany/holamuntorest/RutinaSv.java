@@ -48,9 +48,9 @@ public class RutinaSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearRutina(Rutina usr) {
+    public boolean crearRutina(RutinaDTO usr) {
         try {
-            RutinaFachada.save(usr);
+            RutinaFachada.save(conversor.dtoToRutina(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class RutinaSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Rutina updateRutina(Rutina usr) {
-        return RutinaFachada.update(usr);
+    public Rutina updateRutina(RutinaDTO usr) {
+        return RutinaFachada.update(conversor.dtoToRutina(usr));
     }
 
     @DELETE

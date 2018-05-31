@@ -48,9 +48,9 @@ public class EventoSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearEvento(Evento usr) {
+    public boolean crearEvento(EventoDTO usr) {
         try {
-            EventoFachada.save(usr);
+            EventoFachada.save(conversor.dtoToEvento(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class EventoSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Evento updateEvento(Evento usr) {
-        return EventoFachada.update(usr);
+    public Evento updateEvento(EventoDTO usr) {
+        return EventoFachada.update(conversor.dtoToEvento(usr));
     }
 
     @DELETE

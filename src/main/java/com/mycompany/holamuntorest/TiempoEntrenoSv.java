@@ -48,9 +48,9 @@ public class TiempoEntrenoSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearTiempoEntreno(TiempoEntreno usr) {
+    public boolean crearTiempoEntreno(TiempoEntrenoDTO usr) {
         try {
-            TiempoEntrenoFachada.save(usr);
+            TiempoEntrenoFachada.save(conversor.dtoToTiempoEntreno(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class TiempoEntrenoSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TiempoEntreno updateTiempoEntreno(TiempoEntreno usr) {
-        return TiempoEntrenoFachada.update(usr);
+    public TiempoEntreno updateTiempoEntreno(TiempoEntrenoDTO usr) {
+        return TiempoEntrenoFachada.update(conversor.dtoToTiempoEntreno(usr));
     }
 
     @DELETE

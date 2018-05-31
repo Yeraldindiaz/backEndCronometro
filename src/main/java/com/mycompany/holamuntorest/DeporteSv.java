@@ -48,9 +48,9 @@ public class DeporteSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearDeportes(Deporte usr) {
+    public boolean crearDeportes(DeporteDTO usr) {
         try {
-            DeportesFachada.save(usr);
+            DeportesFachada.save(conversor.dtoToDeportes(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class DeporteSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Deporte updateDeportes(Deporte usr) {
-        return DeportesFachada.update(usr);
+    public Deporte updateDeportes(DeporteDTO usr) {
+        return DeportesFachada.update(conversor.dtoToDeportes(usr));
     }
 
     @DELETE

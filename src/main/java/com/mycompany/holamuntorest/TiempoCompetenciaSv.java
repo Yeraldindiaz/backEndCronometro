@@ -48,9 +48,9 @@ public class TiempoCompetenciaSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearTiempoCompetencia(TiempoCompetencia usr) {
+    public boolean crearTiempoCompetencia(TiempoCompetenciaDTO usr) {
         try {
-            TiempoCompetenciaFachada.save(usr);
+            TiempoCompetenciaFachada.save(conversor.dtoToTiempoCompetencia(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class TiempoCompetenciaSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TiempoCompetencia updateTiempoCompetencia(TiempoCompetencia usr) {
-        return TiempoCompetenciaFachada.update(usr);
+    public TiempoCompetencia updateTiempoCompetencia(TiempoCompetenciaDTO usr) {
+        return TiempoCompetenciaFachada.update(conversor.dtoToTiempoCompetencia(usr));
     }
 
     @DELETE

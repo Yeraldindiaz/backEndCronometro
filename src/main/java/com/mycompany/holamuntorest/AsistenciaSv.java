@@ -48,9 +48,9 @@ public class AsistenciaSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearAsistencia(Asistencia usr) {
+    public boolean crearAsistencia(AsistenciaDTO usr) {
         try {
-            AsistenciaFachada.save(usr);
+            AsistenciaFachada.save(conversor.dotToAsistencia(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class AsistenciaSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Asistencia updateAsistencia(Asistencia usr) {
-        return AsistenciaFachada.update(usr);
+    public Asistencia updateAsistencia(AsistenciaDTO usr) {
+        return AsistenciaFachada.update(conversor.dotToAsistencia(usr));
     }
 
     @DELETE

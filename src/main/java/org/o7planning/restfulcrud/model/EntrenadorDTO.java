@@ -80,7 +80,7 @@ public class EntrenadorDTO {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
+    public void setContraseña(String contrasena) {
         this.contrasena = contrasena;
     }
 

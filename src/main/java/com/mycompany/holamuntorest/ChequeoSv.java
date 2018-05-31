@@ -47,9 +47,9 @@ public class ChequeoSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearChequeo(Chequeo usr) {
+    public boolean crearChequeo(ChequeoDTO usr) {
         try {
-            ChequeoFachada.save(usr);
+            ChequeoFachada.save(conversor.dtoTochequeo(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -59,8 +59,8 @@ public class ChequeoSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Chequeo updateChequeo(Chequeo usr) {
-        return ChequeoFachada.update(usr);
+    public Chequeo updateChequeo(ChequeoDTO usr) {
+        return ChequeoFachada.update(conversor.dtoTochequeo(usr));
     }
 
     @DELETE

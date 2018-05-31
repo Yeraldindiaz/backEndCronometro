@@ -48,9 +48,9 @@ public class EntrenadorSv {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearEntrenador(Entrenador usr) {
+    public boolean crearEntrenador(EntrenadorDTO usr) {
         try {
-            EntrenadorFachada.save(usr);
+            EntrenadorFachada.save(conversor.dtoToEntrenador(usr));
             return true;
         } catch (Exception e) {
             return false;
@@ -60,8 +60,8 @@ public class EntrenadorSv {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Entrenador updateEntrenador(Entrenador usr) {
-        return EntrenadorFachada.update(usr);
+    public Entrenador updateEntrenador(EntrenadorDTO usr) {
+        return EntrenadorFachada.update(conversor.dtoToEntrenador(usr));
     }
 
     @DELETE
