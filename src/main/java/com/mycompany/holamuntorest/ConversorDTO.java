@@ -26,18 +26,26 @@ public class ConversorDTO {
         asistenciaDTO.setJornada(a.getJornada());
         asistenciaDTO.setFecha(a.getFecha());
         asistenciaDTO.setID_Asistencia(a.getID_Asistencia());
-        asistenciaDTO.setEntrenadorDTO(entrenadorToDTO(a.getEntrenadorFK()));
-        asistenciaDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        if (a.getEntrenadorFK() != null) {
+            asistenciaDTO.setEntrenadorDTO(entrenadorToDTO(a.getEntrenadorFK()));
+        }
+        if (a.getDeportistaFK() != null) {
+            asistenciaDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        }
         return asistenciaDTO;
     }
-    
+
     public Asistencia dotToAsistencia(AsistenciaDTO a) {
         Asistencia asistencia = new Asistencia();
         asistencia.setJornada(a.getJornada());
         asistencia.setFecha(a.getFecha());
         asistencia.setID_Asistencia(a.getID_Asistencia());
-        asistencia.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorDTO()));
-        asistencia.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        if (a.getEntrenadorDTO() != null) {
+            asistencia.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorDTO()));
+        }
+        if (a.getDeportistaDTO() != null) {
+            asistencia.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        }
         return asistencia;
     }
 
@@ -47,17 +55,21 @@ public class ConversorDTO {
         chequeoDTO.setPrueba(a.getPrueba());
         chequeoDTO.setDistancia(a.getDistancia());
         chequeoDTO.setTiempo(a.getTiempo());
-        chequeoDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        if (a.getDeportistaFK() != null) {
+            chequeoDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        }
         return chequeoDTO;
     }
-    
+
     public Chequeo dtoTochequeo(ChequeoDTO a) {
         Chequeo chequeo = new Chequeo();
         chequeo.setID_Chequeo(a.getID_Chequeo());
         chequeo.setPrueba(a.getPrueba());
         chequeo.setDistancia(a.getDistancia());
         chequeo.setTiempo(a.getTiempo());
-        chequeo.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        if (a.getDeportistaDTO() != null) {
+            chequeo.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        }
         return chequeo;
     }
 
@@ -70,13 +82,18 @@ public class ConversorDTO {
         deportistaDTO.setCiudad(a.getCiudad());
         deportistaDTO.setCategoria(a.getCategoria());
         deportistaDTO.setContrasena(a.getContrasena());
-        deportistaDTO.setDeporteFK(deportesToDTO(a.getDeporteFK()));
-        deportistaDTO.setEntrenadorFK(entrenadorToDTO(a.getEntrenadorFK()));
+        if (a.getDeporteFK() != null) {
+            deportistaDTO.setDeporteFK(deportesToDTO(a.getDeporteFK()));
+
+        }
+        if (a.getEntrenadorFK() != null) {
+            deportistaDTO.setEntrenadorFK(entrenadorToDTO(a.getEntrenadorFK()));
+        }
         return deportistaDTO;
     }
-    
+
     public Deportista dtoToDeportista(DeportistaDTO a) {
-        Deportista deportista=  new Deportista();
+        Deportista deportista = new Deportista();
         deportista.setID_Deportista(a.getID_Deportista());
         deportista.setNombre(a.getNombre());
         deportista.setApellido(a.getApellido());
@@ -85,8 +102,12 @@ public class ConversorDTO {
         deportista.setCiudad(a.getCiudad());
         deportista.setCategoria(a.getCategoria());
         deportista.setContrasena(a.getContrasena());
-        deportista.setDeporteFK(dtoToDeportes(a.getDeporteFK()));
-        deportista.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorFK()));
+        if (a.getDeporteFK() != null) {
+            deportista.setDeporteFK(dtoToDeportes(a.getDeporteFK()));
+        }
+        if (a.getEntrenadorFK() != null) {
+            deportista.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorFK()));
+        }
         return deportista;
     }
 
@@ -98,10 +119,12 @@ public class ConversorDTO {
         rutinaDTO.setEstilo(a.getEstilo());
         rutinaDTO.setDistancia(a.getDistancia());
         rutinaDTO.setRepeticiones(a.getRepeticiones());
-        rutinaDTO.setEntrenadorDTO(entrenadorToDTO(a.getEntrenadorFK()));
+        if (a.getEntrenadorFK() != null) {
+            rutinaDTO.setEntrenadorDTO(entrenadorToDTO(a.getEntrenadorFK()));
+        }
         return rutinaDTO;
     }
-    
+
     public Rutina dtoToRutina(RutinaDTO a) {
         Rutina rutina = new Rutina();
         rutina.setID_Rutina(a.getID_Rutina());
@@ -110,7 +133,9 @@ public class ConversorDTO {
         rutina.setEstilo(a.getEstilo());
         rutina.setDistancia(a.getDistancia());
         rutina.setRepeticiones(a.getRepeticiones());
-        rutina.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorDTO()));
+        if (a.getEntrenadorDTO() != null) {
+            rutina.setEntrenadorFK(dtoToEntrenador(a.getEntrenadorDTO()));
+        }
         return rutina;
     }
 
@@ -121,10 +146,12 @@ public class ConversorDTO {
         eventoDTO.setNombre(a.getNombre());
         eventoDTO.setLugar(a.getLugar());
         eventoDTO.setTipo(a.getTipo());
-        eventoDTO.setDeporteFK(deportesToDTO(a.getDeport_FK()));
+        if (a.getDeport_FK() != null) {
+            eventoDTO.setDeporteFK(deportesToDTO(a.getDeport_FK()));
+        }
         return eventoDTO;
     }
-    
+
     public Evento dtoToEvento(EventoDTO a) {
         Evento evento = new Evento();
         evento.setID_Evento(a.getID_Evento());
@@ -132,7 +159,9 @@ public class ConversorDTO {
         evento.setNombre(a.getNombre());
         evento.setLugar(a.getLugar());
         evento.setTipo(a.getTipo());
-        evento.setDeport_FK(dtoToDeportes(a.getDeporteFK()));
+        if (a.getDeporteFK() != null) {
+            evento.setDeport_FK(dtoToDeportes(a.getDeporteFK()));
+        }
         return evento;
     }
 
@@ -143,11 +172,15 @@ public class ConversorDTO {
         tiempoEntrenoDTO.setTiempo(a.getTiempo());
         tiempoEntrenoDTO.setTiempodescanso(a.getTiempodescanso());
         tiempoEntrenoDTO.setTiempoexigencia(a.getTiempoexigencia());
-        tiempoEntrenoDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
-        tiempoEntrenoDTO.setRutinaDTO(rutinaToDTO(a.getRutinaFK()));
+        if (a.getDeportistaFK() != null) {
+            tiempoEntrenoDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        }
+        if (a.getRutinaFK() != null) {
+            tiempoEntrenoDTO.setRutinaDTO(rutinaToDTO(a.getRutinaFK()));
+        }
         return tiempoEntrenoDTO;
     }
-    
+
     public TiempoEntreno dtoToTiempoEntreno(TiempoEntrenoDTO a) {
         TiempoEntreno tiempoEntrenoDTO = new TiempoEntreno();
         tiempoEntrenoDTO.setID_tiempos(a.getID_tiempos());
@@ -155,8 +188,12 @@ public class ConversorDTO {
         tiempoEntrenoDTO.setTiempo(a.getTiempo());
         tiempoEntrenoDTO.setTiempodescanso(a.getTiempodescanso());
         tiempoEntrenoDTO.setTiempoexigencia(a.getTiempoexigencia());
-        tiempoEntrenoDTO.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
-        tiempoEntrenoDTO.setRutinaFK(dtoToRutina(a.getRutinaDTO()));
+        if (a.getDeportistaDTO() != null) {
+            tiempoEntrenoDTO.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        }
+        if (a.getRutinaDTO() != null) {
+            tiempoEntrenoDTO.setRutinaFK(dtoToRutina(a.getRutinaDTO()));
+        }
         return tiempoEntrenoDTO;
     }
 
@@ -169,7 +206,9 @@ public class ConversorDTO {
         entrenadorDTO.setCiudad(a.getCiudad());
         entrenadorDTO.setContraseña(a.getContrasena());
         entrenadorDTO.setFechaNacimiento(a.getFechaNacimiento());
-        entrenadorDTO.setDeporteFK(deportesToDTO(a.getDeporteFK()));
+        if (a.getDeporteFK() != null) {
+            entrenadorDTO.setDeporteFK(deportesToDTO(a.getDeporteFK()));
+        }
         return entrenadorDTO;
     }
 
@@ -182,7 +221,9 @@ public class ConversorDTO {
         entrenador.setCiudad(a.getCiudad());
         entrenador.setContrasena(a.getContrasena());
         entrenador.setFechaNacimiento(a.getFechaNacimiento());
-        entrenador.setDeporteFK(dtoToDeportes(a.getDeporteFK()));
+        if (a.getDeporteFK() != null) {
+            entrenador.setDeporteFK(dtoToDeportes(a.getDeporteFK()));
+        }
         return entrenador;
     }
 
@@ -209,8 +250,12 @@ public class ConversorDTO {
         competenciaDTO.setDistancia(a.getDistancia());
         competenciaDTO.setTiempo(a.getTiempo());
         competenciaDTO.setCategoria(a.getCategoria());
-        competenciaDTO.setEventoDTO(eventoToDTO(a.getEventoFK()));
-        competenciaDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        if (a.getEventoFK() != null) {
+            competenciaDTO.setEventoDTO(eventoToDTO(a.getEventoFK()));
+        }
+        if (a.getDeportistaFK() != null) {
+            competenciaDTO.setDeportistaDTO(deportistaToDTO(a.getDeportistaFK()));
+        }
         return competenciaDTO;
     }
 
@@ -221,8 +266,12 @@ public class ConversorDTO {
         competencia.setDistancia(a.getDistancia());
         competencia.setTiempo(a.getTiempo());
         competencia.setCategoria(a.getCategoria());
-        competencia.setEventoFK(dtoToEvento(a.getEventoDTO()));
-        competencia.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        if (a.getEventoDTO() != null) {
+            competencia.setEventoFK(dtoToEvento(a.getEventoDTO()));
+        }
+        if (a.getDeportistaDTO() != null) {
+            competencia.setDeportistaFK(dtoToDeportista(a.getDeportistaDTO()));
+        }
         return competencia;
     }
 }

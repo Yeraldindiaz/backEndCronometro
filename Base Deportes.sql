@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS ENTRENADOR (
   `fechaNacimiento` varchar(150) NOT NULL,
   `cedula` int(11) NOT NULL,
   `ciudad` varchar(150) NOT NULL,
-  `Contraseña` varchar(150) NOT NULL,
+  `contrasena` varchar(150) NOT NULL,
   `deporteFK` int(11) ,
   PRIMARY KEY (`ID_Entrenador`),
   
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS DEPORTISTA (
   `cedula` int(11) NOT NULL,
   `ciudad` varchar(150) NOT NULL,
   `categoria` varchar(150) NOT NULL,
-  `Contraseña` varchar(150) NOT NULL,
+  `contrasena` varchar(150) NOT NULL,
   `deporteFK` int(11) ,
   `entrenadorFK` int(11) ,
   PRIMARY KEY (`ID_Deportista`),
@@ -131,13 +131,13 @@ INSERT INTO DEPORTES (`nombre`, `descripcion`) VALUES ('Natacion con aletas', 'D
 INSERT INTO DEPORTES (`nombre`, `descripcion`) VALUES ('Nado Sincronizado', 'Deporte Acuatico De danza en el agua');
 INSERT INTO DEPORTES (`nombre`, `descripcion`) VALUES ('Polo Acuatico', 'Deporte Acuatico Con pelota por equipos');
 
-INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `Contraseña`, `deporteFK`) VALUES ('Stevens', 'Ruiz', '17/03/2018', '34567', 'Bogota', '34567', '1');
-INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `Contraseña`, `deporteFK`) VALUES ('Jimmy', 'Acosta', '17/03/2018', '34567', 'Bogota', '34567', '1');
-INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `Contraseña`, `deporteFK`) VALUES ('Diego', 'Mayorga', '17/03/2018', '34567', 'Bogota', '34567', '1');
+INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `contrasena`, `deporteFK`) VALUES ('Stevens', 'Ruiz', '17/03/2018', '34567', 'Bogota', '34567', '1');
+INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `contrasena`, `deporteFK`) VALUES ('Jimmy', 'Acosta', '17/03/2018', '34567', 'Bogota', '34567', '1');
+INSERT INTO ENTRENADOR (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `contrasena`, `deporteFK`) VALUES ('Diego', 'Mayorga', '17/03/2018', '34567', 'Bogota', '34567', '1');
 
-INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `Contraseña`, `deporteFK`, `entrenadorFK`) VALUES ('Mario', 'Bolaños Roa', '06/07/1993', '1018460477', 'Bogota', 'S8', '246', '1', '1');
-INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `Contraseña`, `deporteFK`, `entrenadorFK`) VALUES ('Jairo', 'Riascos', '17/03/2018', '1018', 'Bogota', 'S10', '246', '1', '2');
-INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `Contraseña`, `deporteFK`, `entrenadorFK`) VALUES ('Brayan', 'Hurbano', '17/03/2018', '60477', 'Santander', 'S11', '246', '1', '3');
+INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `contrasena`, `deporteFK`, `entrenadorFK`) VALUES ('Mario', 'Bolaños Roa', '06/07/1993', '1018460477', 'Bogota', 'S8', '246', '1', '1');
+INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `contrasena`, `deporteFK`, `entrenadorFK`) VALUES ('Jairo', 'Riascos', '17/03/2018', '1018', 'Bogota', 'S10', '246', '1', '2');
+INSERT INTO DEPORTISTA (`nombre`, `apellido`, `fechaNacimiento`, `cedula`, `ciudad`, `categoria`, `contrasena`, `deporteFK`, `entrenadorFK`) VALUES ('Brayan', 'Hurbano', '17/03/2018', '60477', 'Santander', 'S11', '246', '1', '3');
 
 INSERT INTO EVENTOS (`nombre`, `Tipo`, `fecha`, `lugar`, `deport_FK`) VALUES ('Juegos NAcionales', 'nacionales', '17/03/2018', 'Bogota', '1');
 INSERT INTO EVENTOS (`nombre`, `Tipo`, `fecha`, `lugar`, `deport_FK`) VALUES ('Juegos SUramericanos', 'SUramericanos', '17/03/2018', 'Bogota', '1');
