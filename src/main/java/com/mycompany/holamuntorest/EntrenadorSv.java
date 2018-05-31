@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/entrenador")
 public class EntrenadorSv {
 
-    EntrenadorFachada EntrenadorFachada;
+    EntrenadorFachada entrenadorFachada;
     ConversorDTO conversor;
     
     public EntrenadorSv() throws ConexionException {
-        EntrenadorFachada = new EntrenadorFachada();
+        entrenadorFachada = new EntrenadorFachada();
         conversor = new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<EntrenadorDTO> getEntrenadors_JSON() {
-        List<Entrenador> listaEntrenadors = EntrenadorFachada.findAll();
+        List<Entrenador> listaEntrenadors = entrenadorFachada.findAll();
         List<EntrenadorDTO> EntrenadorDTOs = new ArrayList<>();
         for (Entrenador listaEntrenador : listaEntrenadors) {
             EntrenadorDTOs.add(conversor.entrenadorToDTO(listaEntrenador));
@@ -42,34 +42,34 @@ public class EntrenadorSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public EntrenadorDTO getEntrenador(@PathParam("usrNo") int usrNo) {
-        return conversor.entrenadorToDTO(EntrenadorFachada.get(usrNo));
+        return conversor.entrenadorToDTO(entrenadorFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearEntrenador(EntrenadorDTO usr) {
+    public EntrenadorDTO crearEntrenador(EntrenadorDTO usr) {
         try {
-            EntrenadorFachada.save(conversor.dtoToEntrenador(usr));
-            return true;
+            entrenadorFachada.save(conversor.dtoToEntrenador(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Entrenador updateEntrenador(EntrenadorDTO usr) {
-        return EntrenadorFachada.update(conversor.dtoToEntrenador(usr));
+    public EntrenadorDTO updateEntrenador(EntrenadorDTO usr) {
+        return conversor.entrenadorToDTO(entrenadorFachada.update(conversor.dtoToEntrenador(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteEntrenador(@PathParam("usrNo") int usrNo) {
-        Entrenador u = EntrenadorFachada.get(usrNo);
-        EntrenadorFachada.delete(u);
+        Entrenador u = entrenadorFachada.get(usrNo);
+        entrenadorFachada.delete(u);
     }
     
 }

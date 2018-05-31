@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/evento")
 public class EventoSv {
 
-    EventoFachada EventoFachada;
+    EventoFachada eventoFachada;
     ConversorDTO conversor;
     
     public EventoSv() throws ConexionException {
-        EventoFachada = new EventoFachada();
+        eventoFachada = new EventoFachada();
         conversor = new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<EventoDTO> getEventos_JSON() {
-        List<Evento> listaEventos = EventoFachada.findAll();
+        List<Evento> listaEventos = eventoFachada.findAll();
         List<EventoDTO> EventoDTOs = new ArrayList<>();
         for (Evento listaEvento : listaEventos) {
             EventoDTOs.add(conversor.eventoToDTO(listaEvento));
@@ -42,34 +42,34 @@ public class EventoSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public EventoDTO getEvento(@PathParam("usrNo") int usrNo) {
-        return conversor.eventoToDTO(EventoFachada.get(usrNo));
+        return conversor.eventoToDTO(eventoFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearEvento(EventoDTO usr) {
+    public EventoDTO crearEvento(EventoDTO usr) {
         try {
-            EventoFachada.save(conversor.dtoToEvento(usr));
-            return true;
+            eventoFachada.save(conversor.dtoToEvento(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Evento updateEvento(EventoDTO usr) {
-        return EventoFachada.update(conversor.dtoToEvento(usr));
+    public EventoDTO updateEvento(EventoDTO usr) {
+        return conversor.eventoToDTO(eventoFachada.update(conversor.dtoToEvento(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteEvento(@PathParam("usrNo") int usrNo) {
-        Evento u = EventoFachada.get(usrNo);
-        EventoFachada.delete(u);
+        Evento u = eventoFachada.get(usrNo);
+        eventoFachada.delete(u);
     }
 
 }

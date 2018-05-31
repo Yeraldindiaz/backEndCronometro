@@ -19,17 +19,17 @@ import javax.ws.rs.core.MediaType;
 @Path("/chequeo")
 public class ChequeoSv {
 
-    ChequeoFachada ChequeoFachada;
+    ChequeoFachada chequeoFachada;
     ConversorDTO conversor;
     
     public ChequeoSv() throws ConexionException {
-        ChequeoFachada = new ChequeoFachada();
+        chequeoFachada = new ChequeoFachada();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<ChequeoDTO> getChequeos_JSON() {
-        List<Chequeo> listaChequeos = ChequeoFachada.findAll();
+        List<Chequeo> listaChequeos = chequeoFachada.findAll();
         List<ChequeoDTO> ChequeoDTOs = new ArrayList<>();
         for (Chequeo listaChequeo : listaChequeos) {
             ChequeoDTOs.add(conversor.chequeoToDTO(listaChequeo));
@@ -41,34 +41,34 @@ public class ChequeoSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ChequeoDTO getChequeo(@PathParam("usrNo") int usrNo) {
-        return conversor.chequeoToDTO(ChequeoFachada.get(usrNo));
+        return conversor.chequeoToDTO(chequeoFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearChequeo(ChequeoDTO usr) {
+    public ChequeoDTO crearChequeo(ChequeoDTO usr) {
         try {
-            ChequeoFachada.save(conversor.dtoTochequeo(usr));
-            return true;
+            chequeoFachada.save(conversor.dtoTochequeo(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Chequeo updateChequeo(ChequeoDTO usr) {
-        return ChequeoFachada.update(conversor.dtoTochequeo(usr));
+    public ChequeoDTO updateChequeo(ChequeoDTO usr) {
+        return conversor.chequeoToDTO(chequeoFachada.update(conversor.dtoTochequeo(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteChequeo(@PathParam("usrNo") int usrNo) {
-        Chequeo u = ChequeoFachada.get(usrNo);
-        ChequeoFachada.delete(u);
+        Chequeo u = chequeoFachada.get(usrNo);
+        chequeoFachada.delete(u);
     }
 
 }

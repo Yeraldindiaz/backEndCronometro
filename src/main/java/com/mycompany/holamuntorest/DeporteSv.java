@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/deporte")
 public class DeporteSv {
 
-    DeportesFachada DeportesFachada;
+    DeportesFachada deportesFachada;
     ConversorDTO conversor;
 
     public DeporteSv() throws ConexionException {
-        DeportesFachada = new DeportesFachada();
+        deportesFachada = new DeportesFachada();
         conversor = new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<DeporteDTO> getDeportess_JSON() {
-        List<Deporte> listaDeportess = DeportesFachada.findAll();
+        List<Deporte> listaDeportess = deportesFachada.findAll();
         List<DeporteDTO> DeportesDTOs = new ArrayList<>();
         for (Deporte listaDeportes : listaDeportess) {
             DeportesDTOs.add(conversor.deportesToDTO(listaDeportes));
@@ -42,34 +42,34 @@ public class DeporteSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public DeporteDTO getDeportes(@PathParam("usrNo") int usrNo) {
-        return conversor.deportesToDTO(DeportesFachada.get(usrNo));
+        return conversor.deportesToDTO(deportesFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearDeportes(DeporteDTO usr) {
+    public DeporteDTO crearDeportes(DeporteDTO usr) {
         try {
-            DeportesFachada.save(conversor.dtoToDeportes(usr));
-            return true;
+            deportesFachada.save(conversor.dtoToDeportes(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Deporte updateDeportes(DeporteDTO usr) {
-        return DeportesFachada.update(conversor.dtoToDeportes(usr));
+    public DeporteDTO updateDeportes(DeporteDTO usr) {
+        return conversor.deportesToDTO(deportesFachada.update(conversor.dtoToDeportes(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteDeportes(@PathParam("usrNo") int usrNo) {
-        Deporte u = DeportesFachada.get(usrNo);
-        DeportesFachada.delete(u);
+        Deporte u = deportesFachada.get(usrNo);
+        deportesFachada.delete(u);
     }
 
 }

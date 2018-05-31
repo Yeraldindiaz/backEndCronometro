@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/tiempoEntreno")
 public class TiempoEntrenoSv {
 
-    TiempoEntrenoFachada TiempoEntrenoFachada;
+    TiempoEntrenoFachada tiempoEntrenoFachada;
     ConversorDTO conversor;
 
     public TiempoEntrenoSv() throws ConexionException {
-        TiempoEntrenoFachada = new TiempoEntrenoFachada();
+        tiempoEntrenoFachada = new TiempoEntrenoFachada();
         conversor = new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<TiempoEntrenoDTO> getTiempoEntrenos_JSON() {
-        List<TiempoEntreno> listaTiempoEntrenos = TiempoEntrenoFachada.findAll();
+        List<TiempoEntreno> listaTiempoEntrenos = tiempoEntrenoFachada.findAll();
         List<TiempoEntrenoDTO> TiempoEntrenoDTOs = new ArrayList<>();
         for (TiempoEntreno listaTiempoEntreno : listaTiempoEntrenos) {
             TiempoEntrenoDTOs.add(conversor.tiempoEntrenoToDTO(listaTiempoEntreno));
@@ -42,34 +42,34 @@ public class TiempoEntrenoSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public TiempoEntrenoDTO getTiempoEntreno(@PathParam("usrNo") int usrNo) {
-        return conversor.tiempoEntrenoToDTO(TiempoEntrenoFachada.get(usrNo));
+        return conversor.tiempoEntrenoToDTO(tiempoEntrenoFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearTiempoEntreno(TiempoEntrenoDTO usr) {
+    public TiempoEntrenoDTO crearTiempoEntreno(TiempoEntrenoDTO usr) {
         try {
-            TiempoEntrenoFachada.save(conversor.dtoToTiempoEntreno(usr));
-            return true;
+            tiempoEntrenoFachada.save(conversor.dtoToTiempoEntreno(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TiempoEntreno updateTiempoEntreno(TiempoEntrenoDTO usr) {
-        return TiempoEntrenoFachada.update(conversor.dtoToTiempoEntreno(usr));
+    public TiempoEntrenoDTO updateTiempoEntreno(TiempoEntrenoDTO usr) {
+        return conversor.tiempoEntrenoToDTO(tiempoEntrenoFachada.update(conversor.dtoToTiempoEntreno(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteTiempoEntreno(@PathParam("usrNo") int usrNo) {
-        TiempoEntreno u = TiempoEntrenoFachada.get(usrNo);
-        TiempoEntrenoFachada.delete(u);
+        TiempoEntreno u = tiempoEntrenoFachada.get(usrNo);
+        tiempoEntrenoFachada.delete(u);
     }
 
 }

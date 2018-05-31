@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/asistencia")
 public class AsistenciaSv {
 
-    AsistenciaFachada AsistenciaFachada;
+    AsistenciaFachada asistenciaFachada;
     ConversorDTO conversor;
 
     public AsistenciaSv() throws ConexionException {
-        AsistenciaFachada = new AsistenciaFachada();
+        asistenciaFachada = new AsistenciaFachada();
         conversor= new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<AsistenciaDTO> getAsistencias_JSON() {
-        List<Asistencia> listaAsistencias = AsistenciaFachada.findAll();
+        List<Asistencia> listaAsistencias = asistenciaFachada.findAll();
         List<AsistenciaDTO> AsistenciaDTOs = new ArrayList<>();
         for (Asistencia listaAsistencia : listaAsistencias) {
             AsistenciaDTOs.add(conversor.asistenciaToDTO(listaAsistencia));
@@ -42,34 +42,34 @@ public class AsistenciaSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public AsistenciaDTO getAsistencia(@PathParam("usrNo") int usrNo) {
-        return conversor.asistenciaToDTO(AsistenciaFachada.get(usrNo));
+        return conversor.asistenciaToDTO(asistenciaFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearAsistencia(AsistenciaDTO usr) {
+    public AsistenciaDTO crearAsistencia(AsistenciaDTO usr) {
         try {
-            AsistenciaFachada.save(conversor.dotToAsistencia(usr));
-            return true;
+            asistenciaFachada.save(conversor.dotToAsistencia(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Asistencia updateAsistencia(AsistenciaDTO usr) {
-        return AsistenciaFachada.update(conversor.dotToAsistencia(usr));
+    public AsistenciaDTO updateAsistencia(AsistenciaDTO usr) {
+        return conversor.asistenciaToDTO(asistenciaFachada.update(conversor.dotToAsistencia(usr)));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteAsistencia(@PathParam("usrNo") int usrNo) {
-        Asistencia u = AsistenciaFachada.get(usrNo);
-        AsistenciaFachada.delete(u);
+        Asistencia u = asistenciaFachada.get(usrNo);
+        asistenciaFachada.delete(u);
     }
 
 }

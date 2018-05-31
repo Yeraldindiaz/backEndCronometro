@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/rutina")
 public class RutinaSv {
 
-    RutinaFachada RutinaFachada;
+    RutinaFachada rutinaFachada;
     ConversorDTO conversor;
 
     public RutinaSv() throws ConexionException {
-        RutinaFachada = new RutinaFachada();
+        rutinaFachada = new RutinaFachada();
         conversor = new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<RutinaDTO> getRutinas_JSON() {
-        List<Rutina> listaRutinas = RutinaFachada.findAll();
+        List<Rutina> listaRutinas = rutinaFachada.findAll();
         List<RutinaDTO> RutinaDTOs = new ArrayList<>();
         for (Rutina listaRutina : listaRutinas) {
             RutinaDTOs.add(conversor.rutinaToDTO(listaRutina));
@@ -42,18 +42,18 @@ public class RutinaSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public RutinaDTO getRutina(@PathParam("usrNo") int usrNo) {
-        return conversor.rutinaToDTO(RutinaFachada.get(usrNo));
+        return conversor.rutinaToDTO(rutinaFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearRutina(RutinaDTO usr) {
+    public RutinaDTO crearRutina(RutinaDTO usr) {
         try {
-            RutinaFachada.save(conversor.dtoToRutina(usr));
-            return true;
+            rutinaFachada.save(conversor.dtoToRutina(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
@@ -61,15 +61,15 @@ public class RutinaSv {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Rutina updateRutina(RutinaDTO usr) {
-        return RutinaFachada.update(conversor.dtoToRutina(usr));
+        return rutinaFachada.update(conversor.dtoToRutina(usr));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteRutina(@PathParam("usrNo") int usrNo) {
-        Rutina u = RutinaFachada.get(usrNo);
-        RutinaFachada.delete(u);
+        Rutina u = rutinaFachada.get(usrNo);
+        rutinaFachada.delete(u);
     }
 
 }

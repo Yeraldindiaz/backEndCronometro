@@ -19,18 +19,18 @@ import javax.ws.rs.core.MediaType;
 @Path("tiempoCompetencia")
 public class TiempoCompetenciaSv {
 
-    TiempoCompetenciaFachada TiempoCompetenciaFachada;
+    TiempoCompetenciaFachada tiempoCompetenciaFachada;
     ConversorDTO conversor;
 
     public TiempoCompetenciaSv() throws ConexionException {
-        TiempoCompetenciaFachada = new TiempoCompetenciaFachada();
+        tiempoCompetenciaFachada = new TiempoCompetenciaFachada();
         conversor= new ConversorDTO();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<TiempoCompetenciaDTO> getTiempoCompetencias_JSON() {
-        List<TiempoCompetencia> listaTiempoCompetencias = TiempoCompetenciaFachada.findAll();
+        List<TiempoCompetencia> listaTiempoCompetencias = tiempoCompetenciaFachada.findAll();
         List<TiempoCompetenciaDTO> TiempoCompetenciaDTOs = new ArrayList<>();
         for (TiempoCompetencia listaTiempoCompetencia : listaTiempoCompetencias) {
             TiempoCompetenciaDTOs.add(conversor.tiempoCompetenciaToDTO(listaTiempoCompetencia));
@@ -42,18 +42,18 @@ public class TiempoCompetenciaSv {
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public TiempoCompetenciaDTO getTiempoCompetencia(@PathParam("usrNo") int usrNo) {
-        return conversor.tiempoCompetenciaToDTO(TiempoCompetenciaFachada.get(usrNo));
+        return conversor.tiempoCompetenciaToDTO(tiempoCompetenciaFachada.get(usrNo));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean crearTiempoCompetencia(TiempoCompetenciaDTO usr) {
+    public TiempoCompetenciaDTO crearTiempoCompetencia(TiempoCompetenciaDTO usr) {
         try {
-            TiempoCompetenciaFachada.save(conversor.dtoToTiempoCompetencia(usr));
-            return true;
+            tiempoCompetenciaFachada.save(conversor.dtoToTiempoCompetencia(usr));
+            return usr;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
@@ -61,15 +61,15 @@ public class TiempoCompetenciaSv {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public TiempoCompetencia updateTiempoCompetencia(TiempoCompetenciaDTO usr) {
-        return TiempoCompetenciaFachada.update(conversor.dtoToTiempoCompetencia(usr));
+        return tiempoCompetenciaFachada.update(conversor.dtoToTiempoCompetencia(usr));
     }
 
     @DELETE
     @Path("/{usrNo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void deleteTiempoCompetencia(@PathParam("usrNo") int usrNo) {
-        TiempoCompetencia u = TiempoCompetenciaFachada.get(usrNo);
-        TiempoCompetenciaFachada.delete(u);
+        TiempoCompetencia u = tiempoCompetenciaFachada.get(usrNo);
+        tiempoCompetenciaFachada.delete(u);
     }
 
 }
